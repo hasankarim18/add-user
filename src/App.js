@@ -27,10 +27,8 @@ function App(props) {
 
   return (
     <React.Fragment>
-      les
       <AddUser onAddUser={addUserHandler} />
       <UsersList users={usersList} />
-
     </React.Fragment>
 
 
