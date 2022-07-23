@@ -20,11 +20,6 @@ function App(props) {
       age: age
     }
 
-    console.log(usersList)
-    console.log(newUser)
-    const newUserList = usersList.concat(newUser)
-    console.log(newUserList)
-
     setUsersList((prevUsersList) => {
       return [...prevUsersList, { name: name, age: age }]
     })

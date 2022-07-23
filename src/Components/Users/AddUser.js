@@ -8,8 +8,9 @@ import ErrorModal from '../UI/ErrorModal'
 const AddUser = (props) => {
     const [userName, setUserName] = useState('')
     const [age, setAge] = useState('')
-    //  const userName = useRef('')
     const [error, setError] = useState()
+
+    // ref
 
     const onSubmitHandler = event => {
         event.preventDefault()
@@ -29,15 +30,13 @@ const AddUser = (props) => {
             return
         }
 
-        console.log('user name: ', userName.current)
-
         props.onAddUser(userName, age)
         setUserName('')
         setAge('')
     }
 
     const nameChangeHandler = (event) => {
-        // setUserName(event.target.value)
+        setUserName(event.target.value)
     }
 
     const ageChangeHandler = event => {
@@ -49,7 +48,6 @@ const AddUser = (props) => {
         setError(null)
     }
 
-    console.log(userName)
     return (
         <div>
             {
@@ -74,8 +72,8 @@ const AddUser = (props) => {
                                     className="p-2 p-sm-3 p-sm-5" onSubmit={onSubmitHandler} >
                                     <label htmlFor='username'>User Name</label>
                                     <input
-                                        //   onChange={nameChangeHandler}
-                                        //  value={userName.current}
+                                        onChange={nameChangeHandler}
+                                        value={userName.current}
                                         className="form-control"
                                         id='username'
                                         type="text" />
