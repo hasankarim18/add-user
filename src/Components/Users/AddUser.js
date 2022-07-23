@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import classes from './AddUser.module.css'
 import Card from '../UI/Card'
 import Button from '../UI/Button'
@@ -6,35 +6,38 @@ import ErrorModal from '../UI/ErrorModal'
 
 
 const AddUser = (props) => {
-    const [name, setName] = useState('')
+    const [userName, setUserName] = useState('')
     const [age, setAge] = useState('')
+    //  const userName = useRef('')
     const [error, setError] = useState()
 
     const onSubmitHandler = event => {
         event.preventDefault()
 
-        if (name.trim.length === 0 && age.trim.length === 0) {
+        if (userName.trim().length === 0 && age.trim().length === 0) {
             setError({
                 title: 'Invalid Input',
-                message: 'Please valid name and age'
+                message: 'Please valid userName and age'
             })
             return
-        }
-        if (+age < 1) {
+        } else if (+age < 1) {
             setError({
                 title: 'Invalid age',
                 message: 'Please enter valid age > 0'
             })
+
             return
         }
-        props.onAddUser(name, age)
-        // console.log(name, age)
-        setName('')
+
+        console.log('user name: ', userName.current)
+
+        props.onAddUser(userName, age)
+        setUserName('')
         setAge('')
     }
 
     const nameChangeHandler = (event) => {
-        setName(event.target.value)
+        // setUserName(event.target.value)
     }
 
     const ageChangeHandler = event => {
@@ -42,16 +45,17 @@ const AddUser = (props) => {
     }
 
     const closeErrorModal = () => {
-        console.log('close modal')
+
         setError(null)
     }
 
-
+    console.log(userName)
     return (
         <div>
             {
                 error ?
                     <ErrorModal
+                        ref={userName}
                         className="text-dark"
                         title={error.title}
                         message={error.message}
@@ -70,8 +74,8 @@ const AddUser = (props) => {
                                     className="p-2 p-sm-3 p-sm-5" onSubmit={onSubmitHandler} >
                                     <label htmlFor='username'>User Name</label>
                                     <input
-                                        onChange={nameChangeHandler}
-                                        value={name}
+                                        //   onChange={nameChangeHandler}
+                                        //  value={userName.current}
                                         className="form-control"
                                         id='username'
                                         type="text" />
